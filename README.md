@@ -33,8 +33,7 @@ Another possible section to add to the app would be giving the user the ability 
 
 
 ## Project Wireframe
-
-TODO: Replace the wireframe below with you own design.
+Below is a basic wireframe which entails what the primary two pages of the app will roughly look like.
 
 ![wireframe](add-task.png)
 ![wireframe](task-list.png)
