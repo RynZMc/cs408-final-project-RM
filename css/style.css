@@ -1,4 +1,82 @@
-h1{
-  border-color: #d3e644;
-  border-style: dashed;
+h1 {
+  text-align: center;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  margin-top: 0px;
+}
+
+table {
+  margin: 0 auto;
+  width: 30%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #000000;
+  padding: 8px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+th {
+  background-color: #25b2857b;
+}
+
+td:last-child {
+  text-align: center;
+}
+
+.header-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-container h1 {
+  margin-right: 20px; 
+}
+
+#load-data {
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+#add-item-form {
+  display: flex;
+  flex-direction: column;
+  width: 500px; 
+  border: 1px solid #000000; 
+  padding: 20px; 
+  margin: 20px auto; 
+  border-radius: 5px; 
+  background-color: #25b2857b;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#add-item-form input {
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: 1px solid #000000;
+  height: 30px; 
+  width: 00px;
+  flex: 1;
+  margin-left : 10px;
+}
+
+.add-item-button {
+  text-align: right;
+}
+
+.add-item-button button{
+  font-size: 25px;
+}
+
+
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px; 
+}
+
+.form-group label {
+  width: 60px; 
+  margin-right: 10px;
 }

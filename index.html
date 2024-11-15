@@ -1,18 +1,135 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <title>Hello World!</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Test AWS Lambda</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
-  <h1>HTML Rocks!</h1>
-  <img src="img/compile.jpeg">
-  <script type="module" src="js/main.js"></script>
+    <div class="header-container">
+        <h1>My Simple Inventory App</h1>
+    <!-- Button for loading items from DB -->
+        <button id="load-data">Load All Items</button>
+    </div>
+
+    <!-- Table for displaying items from DB -->
+    <table id="inventory-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Loaded with AJAX -->
+        </tbody>
+    </table>
+
+    <hr>
+
+    <!-- Form for adding new items to the DB -->
+    <form id="add-item-form">
+        <h1>Add New Item to Database</h1>
+        <div class="form-group">
+            <label for="item-id">ID:</label>
+            <input type="text" id="item-id" placeholder="id" required>
+        </div>
+        <div class="form-group">
+            <label for="item-name">Name:</label>
+            <input type="text" id="item-name" placeholder="name" required>
+        </div>
+        <div class="form-group">
+            <label for="item-price">Price:</label>
+            <input type="number" id="item-price" placeholder="price" required>
+        </div>
+        <div class="add-item-button">
+            <button type="submit">Add Item</button>
+        </div>
+    </form>
+
+    <script>
+        // Form submission for adding a new item
+        document.getElementById("add-item-form").onsubmit = function (event) {
+            event.preventDefault(); 
+            let id = document.getElementById("item-id").value;
+            let name = document.getElementById("item-name").value;
+            let price = document.getElementById("item-price").value;
+            
+            // XML request for sending item data to DB
+            let xhr = new XMLHttpRequest();
+            xhr.open("PUT", "https://do7d6hafl5.execute-api.us-east-2.amazonaws.com/items");
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            // Reload page if successful, error if not
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    document.getElementById("load-data").click();
+                } else {
+                    console.error("Failed to add item:", xhr.responseText);
+                }
+            };
+            
+            xhr.send(JSON.stringify({ id, name, price }));
+            this.reset();
+        }
+    </script>
+
+    <script>
+        // Load data from DB when "load all items" is pressed
+        document.getElementById("load-data").onclick = function () {
+            let lambda = document.getElementById("inventory-table").getElementsByTagName('tbody')[0];
+            let xhr = new XMLHttpRequest();
+            xhr.addEventListener("load", function () {
+                lambda.innerHTML = ''; // Clear table
+                let items = JSON.parse(xhr.response);
+                items.forEach(item => {
+                    let row = lambda.insertRow();
+                    row.innerHTML = `
+                        <td>${item.id}</td>
+                        <td>${item.name}</td>
+                        <td>${item.price}</td>
+                        <td><button class="delete-item" data-id="${item.id}">Delete</button></td>
+                    `;
+                });
+                // Event listeners for delete buttons
+                document.querySelectorAll('.delete-item').forEach(button => {
+                    button.onclick = function () {
+                        let itemId = this.getAttribute('data-id');
+                        deleteItem(itemId);
+                    };
+                });
+            });
+
+            xhr.open("GET", "https://do7d6hafl5.execute-api.us-east-2.amazonaws.com/items");
+            xhr.send();
+        }
+    </script>
+
+    <script>
+        // Delete items function 
+        function deleteItem(itemId) {
+            let xhr = new XMLHttpRequest();
+            xhr.open("DELETE", `https://do7d6hafl5.execute-api.us-east-2.amazonaws.com/items/${itemId}`);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send();
+
+            // Reload page if successful, error if not
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    document.getElementById("load-data").click(); // Reload the data after deletion
+                } else {
+                    console.error("Failed to delete item:", xhr.responseText);
+                }
+            };
+        }
+    </script>
 </body>
 
 </html>
