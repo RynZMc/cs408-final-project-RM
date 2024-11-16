@@ -1,21 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Test AWS Lambda</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO app - Home</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
-    <div class="header-container">
-        <h1>My Simple Inventory App</h1>
-    <!-- Button for loading items from DB -->
-        <button id="load-data">Load All Items</button>
-    </div>
+    <h1>TODO App</h1>
+
+    <!-- Navigation Menu Bar -->
+    <nav>
+        <ul class="nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="add-item.html">Add Item</a></li>
+        </ul>
+    </nav>
+
+    <hr>
 
     <!-- Table for displaying items from DB -->
     <table id="inventory-table">
@@ -34,25 +39,7 @@
 
     <hr>
 
-    <!-- Form for adding new items to the DB -->
-    <form id="add-item-form">
-        <h1>Add New Item to Database</h1>
-        <div class="form-group">
-            <label for="item-id">ID:</label>
-            <input type="text" id="item-id" placeholder="id" required>
-        </div>
-        <div class="form-group">
-            <label for="item-name">Name:</label>
-            <input type="text" id="item-name" placeholder="name" required>
-        </div>
-        <div class="form-group">
-            <label for="item-price">Price:</label>
-            <input type="number" id="item-price" placeholder="price" required>
-        </div>
-        <div class="add-item-button">
-            <button type="submit">Add Item</button>
-        </div>
-    </form>
+    <button id="load-data">Load All Items</button>
 
     <script src="js/main.js"></script>
 </body>

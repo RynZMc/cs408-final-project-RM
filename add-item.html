@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO app - Add Task</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <h1>Add a New Task</h1>
+
+    <!-- Navigation Menu Bar -->
+    <nav>
+        <ul class="nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="add-item.html">Add Item</a></li>
+        </ul>
+    </nav>
+
+    <!-- Form for adding a new item -->
+    <form id="add-item-form">
+        <div class="form-group">
+            <label for="item-id">ID:</label>
+            <input type="text" id="item-id" placeholder="Enter item ID" required>
+        </div>
+        <div class="form-group">
+            <label for="item-name">Name:</label>
+            <input type="text" id="item-name" placeholder="Enter item name" required>
+        </div>
+        <div class="form-group">
+            <label for="item-price">Price:</label>
+            <input type="text" id="item-price" placeholder="Enter item price" required>
+        </div>
+        <button type="submit">Add Item</button>
+    </form>
+
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>
