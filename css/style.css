@@ -68,7 +68,7 @@ td:last-child {
 }
 
 /* Add item form styling */
-#add-item-form {
+#add-task-form {
   display: flex;
   flex-direction: column;
   width: 500px; 
@@ -80,7 +80,7 @@ td:last-child {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-#add-item-form input {
+#add-task-form input {
   margin-bottom: 10px;
   border-radius: 10px;
   border: 1px solid #000000;
@@ -90,11 +90,11 @@ td:last-child {
   margin-left: 10px;
 }
 
-.add-item-button {
+.add-task-button {
   text-align: right;
 }
 
-.add-item-button button{
+.add-task-button button{
   font-size: 25px;
 }
 
