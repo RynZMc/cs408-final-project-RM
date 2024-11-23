@@ -16,19 +16,20 @@
     <nav>
         <ul class="nav-list">
             <li><a href="index.html">Home</a></li>
-            <li><a href="add-item.html">Add Item</a></li>
+            <li><a href="add-task.html">Add Item</a></li>
         </ul>
     </nav>
 
     <hr>
 
     <!-- Table for displaying items from DB -->
-    <table id="inventory-table">
+    <table id="task-table">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Price</th>
+                <th>Task</th>
+                <th>Description</th>
+                <th>Comments</th>
+                <th>Status</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -39,7 +40,7 @@
 
     <hr>
 
-    <button id="load-data">Load All Items</button>
+    <button id="load-data">Load All Tasks</button>
 
     <script src="js/main.js"></script>
 </body>
