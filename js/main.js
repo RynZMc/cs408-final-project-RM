@@ -46,6 +46,12 @@ document.addEventListener("DOMContentLoaded", function () {
                         <td>${task.description}</td>
                         <td>${task.comments || "No comments"}</td>
                         <td>
+                        <select class="status-dropdown" data-id="${task.id}">
+                            <option value="Incomplete" ${task.status === "Incomplete" ? "selected" : ""}>Incomplete</option>
+                            <option value="Complete" ${task.status === "Complete" ? "selected" : ""}>Complete</option>
+                        </select>
+                        </td>
+                        <td>
                             <button class="delete-task" data-id="${task.id}">Delete</button>
                         </td>
                     `;
