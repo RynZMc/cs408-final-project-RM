@@ -1,90 +1,88 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Form submission for adding a new item
-    if (document.getElementById("add-item-form")) {
-        document.getElementById("add-item-form").onsubmit = function (event) {
+    // Form submission for adding a new task
+    if (document.getElementById("add-task-form")) {
+        document.getElementById("add-task-form").onsubmit = function (event) {
             event.preventDefault();
-            
-            const id = document.getElementById("item-id").value;
-            const name = document.getElementById("item-name").value;
-            const price = document.getElementById("item-price").value;
 
-            // XML request for sending item data to DB
+            const name = document.getElementById("task-name").value;
+            const description = document.getElementById("task-description").value;
+            const comments = document.getElementById("task-comments").value;
+
+            // XML request for sending task data to DB
             const xhr = new XMLHttpRequest();
-            xhr.open("PUT", "https://do7d6hafl5.execute-api.us-east-2.amazonaws.com/items"); // Update to correct API URL
+            xhr.open("PUT", "https://do7d6hafl5.execute-api.us-east-2.amazonaws.com/items"); // Update with correct API URL
             xhr.setRequestHeader("Content-Type", "application/json");
 
-            // Reload page if successful, error if not
             xhr.onload = function () {
                 if (xhr.status === 200) {
-                    window.location.href = "add-item.html"; // Redirect to index after adding
+                    // Reset the form if successful, error if not
+                    document.getElementById("add-task-form").reset();
                 } else {
-                    console.error("Failed to add item:", xhr.responseText);
+                    console.error("Failed to add task:", xhr.responseText);
                 }
             };
 
             xhr.onerror = function () {
                 console.error("Request failed with status:", xhr.status);
             };
-
-            xhr.send(JSON.stringify({ id, name, price }));
-            this.reset(); // Reset the form fields
+            
+            xhr.send(JSON.stringify({ name, description, comments }));
         };
     }
 
-    // Load data from DB when "load all items" is pressed
-    const loadButton = document.getElementById("load-data");
-    if (loadButton) {
-        loadButton.addEventListener("click", function () {
-            const lambda = document.getElementById("inventory-table").getElementsByTagName('tbody')[0];
-            const xhr = new XMLHttpRequest();
+    // Function to load tasks from the DB
+    function loadTasks() {
+        const taskTableBody = document.getElementById("task-table").getElementsByTagName('tbody')[0];
+        const xhr = new XMLHttpRequest();
 
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    lambda.innerHTML = ''; // Clear table
-                    const items = JSON.parse(xhr.response);
-                    items.forEach(item => {
-                        const row = lambda.insertRow();
-                        row.innerHTML = `
-                            <td>${item.id}</td>
-                            <td>${item.name}</td>
-                            <td>${item.price}</td>
-                            <td><button class="delete-item" data-id="${item.id}">Delete</button></td>
-                        `;
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                taskTableBody.innerHTML = ''; // Clear the table
+                const tasks = JSON.parse(xhr.response);
+                tasks.forEach(task => {
+                    const row = taskTableBody.insertRow();
+                    row.innerHTML = `
+                        <td>${task.name}</td>
+                        <td>${task.description}</td>
+                        <td>${task.comments || "No comments"}</td>
+                        <td>
+                            <button class="delete-task" data-id="${task.id}">Delete</button>
+                        </td>
+                    `;
+                });
+
+                // Event listeners for delete buttons
+                document.querySelectorAll('.delete-task').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const taskId = this.getAttribute('data-id');
+                        deleteTask(taskId);
                     });
+                });
+            } else {
+                console.error("Failed to load tasks:", xhr.responseText);
+            }
+        };
 
-                    // Event listeners for delete buttons
-                    document.querySelectorAll('.delete-item').forEach(button => {
-                        button.addEventListener('click', function () {
-                            const itemId = this.getAttribute('data-id');
-                            deleteItem(itemId);
-                        });
-                    });
-                } else {
-                    console.error("Failed to load items:", xhr.responseText);
-                }
-            };
+        xhr.onerror = function () {
+            console.error("Request failed with status:", xhr.status);
+        };
 
-            xhr.onerror = function () {
-                console.error("Request failed with status:", xhr.status);
-            };
-
-            xhr.open("GET", "https://do7d6hafl5.execute-api.us-east-2.amazonaws.com/items");
-            xhr.send();
-        });
+        xhr.open("GET", "https://do7d6hafl5.execute-api.us-east-2.amazonaws.com/items");
+        xhr.send();
     }
 
-    // Delete item function
-    function deleteItem(itemId) {
+    // Function to delete a task
+    function deleteTask(taskId) {
         const xhr = new XMLHttpRequest();
-        xhr.open("DELETE", `https://do7d6hafl5.execute-api.us-east-2.amazonaws.com/items/${itemId}`);
+        xhr.open("DELETE", `https://do7d6hafl5.execute-api.us-east-2.amazonaws.com/items/${taskId}`); // Update with correct API URL
         xhr.setRequestHeader("Content-Type", "application/json");
 
         // Reload page if successful, error if not
         xhr.onload = function () {
             if (xhr.status === 200) {
-                document.getElementById("load-data").click();  // Reload data after deletion
+                loadTasks(); // Reload the task list after deletion
             } else {
-                console.error("Failed to delete item:", xhr.responseText);
+                console.error("Failed to delete task:", xhr.responseText);
             }
         };
 
@@ -94,4 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         xhr.send();
     }
+
+    // Load tasks when the page is loaded
+    loadTasks();
 });
