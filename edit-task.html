@@ -20,3 +20,23 @@
             <li><a href="edit-task.html">Edit Task</a></li>
         </ul>
     </nav>
+
+    <form id="edit-task-form">
+        <div class="form-group">
+            <label for="task-name">Task:</label>
+            <input type="text" id="task-name" name="task-name" placeholder="Enter task name" required><br>
+        </div>  
+        <div class="form-group">
+            <label for="task-description">Description:</label>
+            <input type="text" id="task-description" name="task-description" placeholder="Enter task description"></textarea><br>
+        </div>  
+        <div class="form-group">
+            <label for="task-comments">Comments:</label>
+            <input type="text" id="task-comments" name="task-comments" placeholder="Enter task comments"></textarea><br>
+        </div>  
+        <button type="submit">Edit Task</button>
+    </form>
+
+    <script src="js/edit-task.js"></script>
+
+</body>
