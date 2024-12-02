@@ -42,18 +42,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 tasks.forEach(task => {
                     const row = taskTableBody.insertRow();
                     row.innerHTML = `
-                        <td>${task.name}</td>
-                        <td>${task.description}</td>
-                        <td>${task.comments || "No comments"}</td>
-                        <td>
-                        <select class="status-dropdown" data-id="${task.id}">
-                            <option value="Incomplete" ${task.status === "Incomplete" ? "selected" : ""}>Incomplete</option>
-                            <option value="Complete" ${task.status === "Complete" ? "selected" : ""}>Complete</option>
-                        </select>
-                        </td>
-                        <td>
-                            <button class="delete-task" data-id="${task.id}">Delete</button>
-                        </td>
+                    <td>${task.name}</td>
+                    <td>${task.description}</td>
+                    <td>${task.comments || "No comments"}</td>
+                    <td>
+                        <button class="edit-task" data-id="${task.id}">Edit</button>
+                    </td>
+                    <td>
+                        <button class="delete-task" data-id="${task.id}">Delete</button>
+                    </td>
                     `;
                 });
 
@@ -62,6 +59,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     button.addEventListener('click', function () {
                         const taskId = this.getAttribute('data-id');
                         deleteTask(taskId);
+                    });
+                });
+
+                // Event listener for Edit buttons
+                document.querySelectorAll('.edit-task').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const taskId = this.getAttribute('data-id');
+                        window.location.href = `edit-task.html?id=${taskId}`;
                     });
                 });
             } else {
