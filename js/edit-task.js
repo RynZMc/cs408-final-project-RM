@@ -2,11 +2,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const urlParams = new URLSearchParams(window.location.search);
     const taskId = urlParams.get("id");
 
-    // Alert if taskID is not given from clicking edit on index?
-    // if (!taskId) {
-    //     alert("Please use edit on main page");
-    //     return;
-    // }
+    if (!taskId) {
+        alert("Please use edit on home page!");
+        window.location.href = "index.html";
+    }
 
     // Fetch task data
     const xhr = new XMLHttpRequest();

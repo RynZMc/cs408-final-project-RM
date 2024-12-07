@@ -1,9 +1,22 @@
-/* Body styling */
+/* Body and h1 Styling */
+@import url('https://fonts.googleapis.com/css2?family=Lemon&family=Permanent+Marker&family=Rancho&display=swap');
+
+body {
+    text-align: center;
+    background-color: whitesmoke;
+}
+
 h1 {
-  text-align: center;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-size: 5rem;
-  margin-top: 20px;
+    font-family: Lemon;
+    font-size: 4rem;
+    text-align: center;
+    margin-top: 20px;
+    color: #e1385a; 
+    display: inline-block;
+    padding: 10px 20px; 
+    border: 5px solid #000000;
+    border-radius: 10px;
+    text-shadow: 4px 4px 4px rgba(0,0,0,0.3);
 }
 
 table {
@@ -67,68 +80,20 @@ td:last-child {
   text-align: center;
 }
 
-/* Add item form styling */
-#add-task-form {
-  display: flex;
-  flex-direction: column;
-  width: 500px; 
-  border: 1px solid #000000; 
-  padding: 20px; 
-  margin: 20px auto; 
-  border-radius: 5px; 
-  background-color: #25b2857b;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+/* Button styling */
+button {
+  background: linear-gradient(to bottom, #e1385a 0%, #25b285 100%);
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
-
-#add-task-form input {
-  margin-bottom: 10px;
-  border-radius: 10px;
-  border: 1px solid #000000;
-  height: 30px; 
-  width: 100%;
-  flex: 1;
-  margin-left: 10px;
-}
-
-.add-task-button {
-  text-align: right;
-}
-
-.add-task-button button{
-  font-size: 25px;
-}
-
-#edit-task-form {
-  display: flex;
-  flex-direction: column;
-  width: 500px; 
-  border: 1px solid #000000; 
-  padding: 20px; 
-  margin: 20px auto; 
-  border-radius: 5px; 
-  background-color: #25b2857b;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-
-#edit-task-form input {
-  margin-bottom: 10px;
-  border-radius: 10px;
-  border: 1px solid #000000;
-  height: 30px; 
-  width: 100%;
-  flex: 1;
-  margin-left: 10px;
-}
-
-.form-group {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px; 
-}
-
-.form-group label {
-  width: 150px; 
-  margin-right: 10px;
+  
+button:hover {
+  background: linear-gradient(to bottom, #25b285 0%, #25b285 100%);
 }
 
 /* Responsive design for smaller screens */
